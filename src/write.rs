@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use std::io;
 use std::{borrow::Cow, ops::Deref};
 
-use crate::{AnsiGenericStrings, FmtArgRenderer, Style};
+use crate::{AnsiGenericString, AnsiGenericStrings, FmtArgRenderer, Style};
 
 /// Helper to alias  over [`fmt::Result`], or [`io::Result`] depending on the
 /// error type used ([`fmt::Error`] or [`io::Error`]).
@@ -261,3 +261,11 @@ impl<'a> From<Vec<u8>> for Content<'a, [u8]> {
         Content::StrLike(Cow::Owned(s))
     }
 }
+
+// impl<'a, S: 'a + ?Sized + ToOwned> FromIterator<AnsiGenericString<'a, S>> for Content<'a, S> {
+//     fn from_iter<Iterable: IntoIterator<Item = AnsiGenericString<'a, S>>>(
+//         iterable: Iterable,
+//     ) -> Self {
+//         Content::from(AnsiGenericStrings::from_iter(iterable))
+//     }
+// }
